@@ -1,0 +1,12 @@
+d = load('-ascii', 'tiempos.log')
+x = [ [0 1 2 3] d(:,1:1)' ]
+cpp = [ [0 0 0 0] d(:,2:2)' ]
+py = [ [0 0 0 0] d(:,3:3)' ]
+
+plot(x, cpp,'1;C++;' , x, py, '2;Python;')
+xlabel('log(numero de nodos)')
+ylabel('segundos')
+title('C++ vs Python')
+plot(x, cpp,'1;C++;' , x, py, '2;Python;')
+
+print -dpng performance.png

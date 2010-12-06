@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+# Generation config
+gen_size = 150
+from_last_gen = 100
+elitism = 20
+mutants = 30
+
+# Individual config
+peso_choques = 0.1
+value_power = 5
+
+min_x = 0
+max_x = 100
+min_y = 0
+max_y = 100
+
+mutation_probability = 0.7
+mutation_mode_1 = 0.9
+
+points_per_individual = 10

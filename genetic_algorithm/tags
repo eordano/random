@@ -1,0 +1,82 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+G	f20.py	/^	G = Generation(f20)$/;"	v
+G	test.py	/^G = Generation(Puntos)$/;"	v
+Generation	f20.py	/^from generation import Generation$/;"	i
+Generation	generation.py	/^class Generation:$/;"	c
+Generation	test.py	/^from generation import Generation$/;"	i
+Individual	f20.py	/^from individual import Individual$/;"	i
+Individual	individual.py	/^class Individual:$/;"	c
+Individual	puntos.py	/^from individual import Individual$/;"	i
+Puntos	puntos.py	/^class Puntos(Individual):$/;"	c
+Puntos	test.py	/^from puntos import Puntos$/;"	i
+__init__	f20.py	/^	def __init__(self, string):$/;"	m	class:f20
+__init__	generation.py	/^	def __init__(self, kind, individuals=[]):$/;"	m	class:Generation
+__init__	individual.py	/^	def __init__(self):$/;"	m	class:Individual
+__init__	puntos.py	/^	def __init__(self, conjunto=[]):$/;"	m	class:Puntos
+__str__	generation.py	/^	def __str__(self):$/;"	m	class:Generation	file:
+__str__	puntos.py	/^	def __str__(self):$/;"	m	class:Puntos	file:
+all_inside	puntos.py	/^def all_inside(pes, ce, radius_sqrd):$/;"	f
+average	puntos.py	/^def average(p1, p2):$/;"	f
+average	test.py	/^def average(ls):$/;"	f
+bs	f20.py	/^bs = [[lambda x: 'A', 'Always A'], [lambda x: 'B', 'Always B'], [lambda x: 'A' if x and x[-1][0] > x[-1][1] else 'B', 'Most crowded'], [lambda x: 'A' if x and x[-1][0] < x[-1][1] else 'B', 'Least crowded'], [lambda x: 'A' if len(x) % 2 else 'B', 'A, B'], [lambda x: 'A' if len(x) % 3 < 2 else 'B', 'A, A, B'], [lambda x: 'A' if x and (700\/x[-1][0] if x[-1][0] else 1000) > (300\/x[-1][1] if x[-1][1] else 1000) else 'B', 'Most $$$ of Last Round'], [lambda x: 'A' if x and (700\/x[-1][0] if x[-1][0] else 1000) < (300\/x[-1][1] if x[-1][1] else 1000) else 'B', 'Less $$$ of Last Round'], [lambda x: 'A' if random.randint(0, 2) % 2 else 'B', 'Random']]$/;"	v
+choice	generation.py	/^from random import random, choice$/;"	i
+config	f20.py	/^import config$/;"	i
+config	generation.py	/^import config$/;"	i
+config	puntos.py	/^import config$/;"	i
+cont	f20.py	/^	cont = 0$/;"	v
+cont	test.py	/^cont = 0$/;"	v
+distance_sqrd	puntos.py	/^def distance_sqrd(p1, p2):$/;"	f
+elitism	config.py	/^elitism = 25$/;"	v
+f20	f20.py	/^class f20(Individual):$/;"	c
+fitness	f20.py	/^	def fitness(self):$/;"	m	class:f20
+fitness	individual.py	/^	def fitness(self):$/;"	m	class:Individual
+fitness	puntos.py	/^	def fitness(self):$/;"	m	class:Puntos
+from_last_gen	config.py	/^from_last_gen = 50$/;"	v
+gen_size	config.py	/^gen_size = 80$/;"	v
+genes_mutated	config.py	/^genes_mutated = 3$/;"	v
+get_choques	puntos.py	/^	def get_choques(self):$/;"	m	class:Puntos
+get_circle	puntos.py	/^	def get_circle(self):$/;"	m	class:Puntos
+get_description	f20.py	/^	def get_description(self):$/;"	m	class:f20
+get_description	generation.py	/^	def get_description(self):$/;"	m	class:Generation
+get_description	individual.py	/^	def get_description(self):$/;"	m	class:Individual
+get_description	puntos.py	/^	def get_description(self):$/;"	m	class:Puntos
+inside_sqrd	puntos.py	/^def inside_sqrd(pe, ce, radius_sqrd):$/;"	f
+make_list	generation.py	/^		def make_list(r, n):$/;"	f	function:Generation.spawn_weighted_babies
+make_plot	test.py	/^def make_plot(fittest):$/;"	f
+mate	f20.py	/^	def mate(self, friend):$/;"	m	class:f20
+mate	individual.py	/^	def mate(self, friend):$/;"	m	class:Individual
+mate	puntos.py	/^	def mate(self, friend):$/;"	m	class:Puntos
+max_x	config.py	/^max_x = 20$/;"	v
+max_y	config.py	/^max_y = 20$/;"	v
+min_x	config.py	/^min_x = 0$/;"	v
+min_y	config.py	/^min_y = 0$/;"	v
+mutants	config.py	/^mutants = 5$/;"	v
+mutation_mode_1	config.py	/^mutation_mode_1 = 0.9$/;"	v
+mutation_probability	config.py	/^mutation_probability = 0.95$/;"	v
+os	test.py	/^import os$/;"	i
+peso_choques	config.py	/^peso_choques = 0.1$/;"	v
+points_per_individual	config.py	/^points_per_individual = 10$/;"	v
+random	f20.py	/^import random$/;"	i
+random	generation.py	/^from random import random, choice$/;"	i
+random	puntos.py	/^from random import randrange, random$/;"	i
+random_individual	f20.py	/^	def random_individual(cls):$/;"	m	class:f20
+random_individual	individual.py	/^	def random_individual(cls):$/;"	m	class:Individual
+random_individual	puntos.py	/^	def random_individual(cls):$/;"	m	class:Puntos
+random_mutant	f20.py	/^	def random_mutant(self):$/;"	m	class:f20
+random_mutant	individual.py	/^	def random_mutant(self):$/;"	m	class:Individual
+random_mutant	puntos.py	/^	def random_mutant(self):$/;"	m	class:Puntos
+randrange	puntos.py	/^from random import randrange, random$/;"	i
+simulations_per_individual	config.py	/^simulations_per_individual = 300$/;"	v
+spawn_new_gen	generation.py	/^	def spawn_new_gen(self, Debug = False):$/;"	m	class:Generation
+spawn_random_individuals	generation.py	/^	def spawn_random_individuals(self, amount):$/;"	m	class:Generation
+spawn_random_mutants	generation.py	/^	def spawn_random_mutants(self, amount):$/;"	m	class:Generation
+spawn_weighted_babies	generation.py	/^	def spawn_weighted_babies(self, amount):$/;"	m	class:Generation
+sqrt	puntos.py	/^from math import sqrt$/;"	i
+string_length	config.py	/^string_length = 20$/;"	v
+value_power	config.py	/^value_power = 5$/;"	v
+who	generation.py	/^		def who(f):$/;"	f	function:Generation.spawn_weighted_babies
