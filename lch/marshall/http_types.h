@@ -37,7 +37,7 @@ struct http_response_t {
 
     char* content_type;
     size_t content_length;
-    struct dlinked_list footers;
+    struct dlinked_list* footers;
 
     char* content;
 };

@@ -168,7 +168,7 @@ void free_http_request(struct http_request_t* request){
 void free_http_response(struct http_response_t* response){
     free(response->content_type);
     free(response->content);
-    free_link_of_pair_strings(&(response->footers));
+    free_link_of_pair_strings(response->footers);
     free(response);
 }
 
@@ -192,7 +192,7 @@ static char* write_in_buffer(char* buffer, int* where, char* what,
  * Write all footers into one string
  */
 static char* compute_footers(struct http_response_t* response){
-    if (response->footers.data == NULL){
+    if (response->footers->data == NULL){
         return "";
     }
 
@@ -202,7 +202,7 @@ static char* compute_footers(struct http_response_t* response){
     int written = 0;
     #define wr_in_buff2(w, s) retval = write_in_buffer(retval, &written, w, s, &buffer_size)
 
-    struct dlinked_list* current = &(response->footers);
+    struct dlinked_list* current = response->footers;
 
     do{
         struct pair_strings* pair = (struct pair_strings*) current->data;
@@ -213,7 +213,7 @@ static char* compute_footers(struct http_response_t* response){
         wr_in_buff2("\n", 1);
 
         current = current->next;
-    } while (current != &(response->footers));
+    } while (current != response->footers);
     wr_in_buff2("\0", 1);
 
     return retval;
