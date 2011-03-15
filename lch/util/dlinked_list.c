@@ -3,7 +3,7 @@
 #include "dlinked_list.h"
 
 struct dlinked_list* dll_new(){
-    dlinked_list* new_head = malloc(sizeof(dlinked_list));
+    struct dlinked_list* new_head = malloc(sizeof(struct dlinked_list));
     new_head->next = new_head;
     new_head->prev = new_head;
     new_head->data = NULL;
@@ -15,12 +15,11 @@ int dll_is_empty(struct dlinked_list* dll){
 }
 
 void dll_add_after(struct dlinked_list* dll, void* data){
-    dlinked_list* new_link = malloc(sizeof(dlinked_list));
+    struct dlinked_list* new_link = malloc(sizeof(struct dlinked_list));
     new_link->data = data;
     new_link->prev = dll;
-    new_link->next = dll_next(dll);
+    new_link->next = dll->next;
     dll->next = new_link;
-    return new_link;
 }
 
 void dll_add_before(struct dlinked_list* dll, void* data){

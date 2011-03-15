@@ -1,8 +1,10 @@
 #ifndef __application_h__
 #define __application_h__
 
+#include <stdlib.h>
+
 #include "../marshall/http_types.h"
-#include "utils/defines.h"
+#include "../util/defines.h"
 
 struct http_response_t* application(struct http_request_t*);
 
