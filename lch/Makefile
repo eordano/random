@@ -6,7 +6,7 @@
 
 CC=gcc
 OBJECTS=server.o request_marshall.o dlinked_list.o application.o
-CFLAGS=-O2 -Wall
+CFLAGS=-O2 -Wall -g
 LIBS=
 
 lch: $(OBJECTS) 

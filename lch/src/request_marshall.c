@@ -1,4 +1,4 @@
-#include "request_marshall.h"
+#include "../include/request_marshall.h"
 
 #include <string.h>
 #include <stdio.h>
@@ -92,10 +92,13 @@ struct http_request_t* request_marshall(char* raw_http_request){
     char* next_space = strchr(++raw_http_request, ' ');
 
     retval->path = malloc(next_space - raw_http_request + 1);
+    strncpy(retval->path, raw_http_request, next_space - raw_http_request);
     retval->path[next_space - raw_http_request] = 0;
     retval->host = NULL;
     retval->user_agent = NULL;
     retval->referer = NULL;
+
+    while(*(raw_http_request++) != '\n');
 
     char* line;
     int first_header = 1;
@@ -257,7 +260,6 @@ char* request_unmarshall(struct http_response_t* response){
     wr_in_buff("\n", 1);
     wr_in_buff(response->content, response->content_length);
     wr_in_buff("\0", 1);
-
     free_http_response(response);
 
     return retval;

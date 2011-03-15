@@ -1,8 +1,8 @@
 #ifndef __http_types_h__
 #define __http_types_h__
 
-#include "../util/dlinked_list.h"
-#include "../util/defines.h"
+#include "dlinked_list.h"
+#include "defines.h"
 
 typedef enum {
     OPTIONS, GET, HEAD, POST, PUT,  DELETE, TRACE, CONNECT

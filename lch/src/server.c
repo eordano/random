@@ -6,12 +6,12 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "util/defines.h"
+#include "../include/defines.h"
 
-#include "marshall/request_marshall.h"
-#include "marshall/http_types.h"
+#include "../include/request_marshall.h"
+#include "../include/http_types.h"
 
-#include "application/application.h"
+#include "../include/application.h"
 
 const int BLOCK_SIZE = 4096;
 
@@ -81,8 +81,8 @@ int main(int argc, char** argv){
         }
 
         char* response = request_unmarshall(application(request_marshall(buffer)));
-
         write(new_socket_fd, response, strlen(response));
+        free(response);
 
         return 0;
     }

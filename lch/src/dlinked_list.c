@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "dlinked_list.h"
+#include "../include/dlinked_list.h"
 
 struct dlinked_list* dll_new(){
     struct dlinked_list* new_head = malloc(sizeof(struct dlinked_list));

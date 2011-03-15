@@ -3,10 +3,10 @@
 
 #include <stdlib.h>
 
-#include "../marshall/request_marshall.h"
-#include "../marshall/http_types.h"
-#include "../util/defines.h"
-#include "../util/dlinked_list.h"
+#include "request_marshall.h"
+#include "http_types.h"
+#include "defines.h"
+#include "dlinked_list.h"
 
 struct http_response_t* application(struct http_request_t*);
 

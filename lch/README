@@ -8,3 +8,36 @@ structures, and more.
 Copyright ©2011 by Esteban Ordano.
 Distributed under the MIT License.
 
+Introduction
+============
+
+This simple http server library gives you:
+
+* A request data structure with information about what the client sent.
+* A response data structure that you should fill (fully customizable).
+* Some helpers to easily create responses without having to fill in details.
+
+Usage
+=====
+
+Include the file *include/lch.h* and link against lch.o to get the
+functionality of the server.
+
+Take a look at *include/http_types.h* to get a glance of what information you
+get when handling a http request, and what information you should fill in.
+
+Take a look at *include/lch_helpers.h* to see what functions are at hand when
+creating the following responses:
+
+* 200 OK
+* 301 Moved Permanently
+* 307 Temporary Redirect
+* 404 Not Found
+* 500 Internal Server Error
+
+Start the server with a call to the function init\_lch, wich receives a
+callback that will be called for each request::
+
+    void init_lch((http_response_t* callback)(http_request_t* request));
+
+
