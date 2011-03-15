@@ -42,10 +42,6 @@ int main(int argc, char** argv){
     socket_address.sin_addr.s_addr = INADDR_ANY;
     socket_address.sin_port = htons(port);
 
-    // Setup address for the client that connects to us
-    struct socklen_t client_length;
-    struct sockaddr_in client_address;
-
     // Bind to the port
     if (bind(socket_fd, (struct sockaddr *) &socket_address,
         sizeof(socket_address)) < 0)
@@ -60,11 +56,7 @@ int main(int argc, char** argv){
     for( ; ; ){
 
         // This locks my process, so the infinite loop is not that heavy
-        client_length = sizeof(client_address);
-        int new_socket_fd = accept(socket_fd,
-            (struct sockaddr *) &client_address,
-            &client_length
-        );
+        int new_socket_fd = accept(socket_fd, NULL, NULL);
 
         int pid = fork();
         if (pid > 0){ 
