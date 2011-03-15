@@ -1,0 +1,10 @@
+========================
+Lightweight C Httpserver
+========================
+
+A simple HTTP server written in C as an exercise on sockets, threads, C data
+structures, and more.
+
+Copyright ©2011 by Esteban Ordano.
+Distributed under the MIT License.
+
