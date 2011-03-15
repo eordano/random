@@ -4,6 +4,11 @@
 #include <stdio.h>
 static int RESP_BLOCK_SIZE = 4096;
 
+/**
+ * Get a line from a string. It divides the string into two, and takes
+ * the first part and copies to a new malloc'd char buffer.
+ * Please remember to free that string afterwards.
+ */
 static char* get_line(char* raw_string){
     char* index_eol = strchr(raw_string, '\n');
 
@@ -15,6 +20,13 @@ static char* get_line(char* raw_string){
     return retval;
 }
 
+/**
+ * Takes a string that has the form:
+ * "SOMETHING: OTHER THING"
+ * and creates a *struct pair_strings* with a copy of both
+ * SOMETHING and OTHER THING, in two different strings, into
+ * the 'key' and 'value' members of the returned struct
+ */
 static struct pair_strings* read_pair_strings(char* raw_string){
     struct pair_strings* retval = malloc(sizeof(struct pair_strings));
 
@@ -35,6 +47,9 @@ static struct pair_strings* read_pair_strings(char* raw_string){
     return retval;
 }
 
+/**
+ * Transform a raw string into our local data representation of a http request
+ */
 struct http_request_t* request_marshall(char* raw_http_request){
     struct http_request_t* retval = malloc(sizeof(struct http_request_t));
 
@@ -117,17 +132,26 @@ struct http_request_t* request_marshall(char* raw_http_request){
     return retval;
 }
 
+/**
+ * Frees allocated pair of strings
+ */
 static void free_pair_strings(struct pair_strings* pair){
     free(pair->key);
     free(pair->value);
     free(pair);
 }
 
+/**
+ * Frees a node of a linked list containing a pair of strings
+ */
 static void free_link_of_pair_strings(struct dlinked_list* dll){
     free_pair_strings((struct pair_strings*)dll->data);
     dll_delete_link(dll);
 }
 
+/**
+ * Method to clean up the memory taken by an HTTP request
+ */
 void free_http_request(struct http_request_t* request){
     free(request->path);
     free(request->host);
@@ -138,6 +162,9 @@ void free_http_request(struct http_request_t* request){
     free(request);
 }
 
+/**
+ * Method to clean up the memory taken by an HTTP response
+ */
 void free_http_response(struct http_response_t* response){
     free(response->content_type);
     free(response->content);
@@ -145,6 +172,9 @@ void free_http_response(struct http_response_t* response){
     free(response);
 }
 
+/**
+ * Helper with string buffers
+ */
 static char* write_in_buffer(char* buffer, int* where, char* what,
     size_t length, int* buffer_size)
 {
@@ -158,6 +188,9 @@ static char* write_in_buffer(char* buffer, int* where, char* what,
     return buffer;
 }
 
+/**
+ * Write all footers into one string
+ */
 static char* compute_footers(struct http_response_t* response){
     if (response->footers.data == NULL){
         return "";
@@ -186,6 +219,9 @@ static char* compute_footers(struct http_response_t* response){
     return retval;
 }
 
+/**
+ * Take a HTTP Response and build up a string
+ */
 char* request_unmarshall(struct http_response_t* response){
     char* retval = malloc(RESP_BLOCK_SIZE);
     int buffer_size = RESP_BLOCK_SIZE;
