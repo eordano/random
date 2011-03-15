@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "util/defines.h"
+
 #include "marshall/request_marshall.h"
 #include "marshall/http_types.h"
 

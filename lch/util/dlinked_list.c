@@ -2,7 +2,7 @@
 
 #include "dlinked_list.h"
 
-dlinked_list* dll_new(){
+struct dlinked_list* dll_new(){
     dlinked_list* new_head = malloc(sizeof(dlinked_list));
     new_head->next = new_head;
     new_head->prev = new_head;
@@ -10,7 +10,7 @@ dlinked_list* dll_new(){
     return new_head;
 }
 
-bool dll_is_empty(struct dlinked_list* dll){
+int dll_is_empty(struct dlinked_list* dll){
     return dll->data == NULL && dll->next == dll->prev && dll->next == dll;
 }
 

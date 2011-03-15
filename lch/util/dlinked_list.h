@@ -1,5 +1,7 @@
 #ifndef __dlinked_list_h__
-#ifndef __dlinked_list_h__
+#define __dlinked_list_h__
+
+#include "utils/defines.h"
 
 struct dlinked_list{
     void* data;
@@ -7,8 +9,8 @@ struct dlinked_list{
     struct dlinked_list *prev;
 };
 
-dlinked_list* dll_new();
-bool dll_is_empty(struct dlinked_list* dll);
+struct dlinked_list* dll_new();
+int dll_is_empty(struct dlinked_list* dll);
 void dll_add_after(struct dlinked_list* dll, void* data);
 void dll_add_before(struct dlinked_list* dll, void* data);
 void dll_join_lists(struct dlinked_list* dll1, struct dlinked_list* dll2);

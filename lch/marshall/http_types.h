@@ -2,6 +2,7 @@
 #define __http_types_h__
 
 #include "../util/dlinked_list.h"
+#include "utils/defines.h"
 
 struct http_request_t {
 };
