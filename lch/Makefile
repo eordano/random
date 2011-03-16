@@ -10,7 +10,8 @@ CFLAGS=-O2 -Wall -g
 LIBS=
 
 lch: $(OBJECTS) 
-	$(CC) $(CFLAGS) $(LIBS) lch $(OBJECTS)
+	ld -o lch.o $(OBJECTS) -lc
+	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o
 
 init_lch.o: src/init_lch.c include/lch.h
 	$(CC) $(CFLAGS) $(LIBS) -c src/init_lch.c 
@@ -25,4 +26,4 @@ lch_helpers.o: src/lch_helpers.c
 	$(CC) $(CFLAGS) $(LIBS) -c src/lch_helpers.c
 
 clean :
-	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o
+	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o lch.o
