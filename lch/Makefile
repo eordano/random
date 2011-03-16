@@ -1,29 +1,25 @@
-#
-#
 # Makefile for Lightweight C Httpserver (LCH)
-#
-#
+
+FILES=init_lch request_marshall dlinked_list lch_helpers
 
 CC=gcc
-OBJECTS=init_lch.o request_marshall.o dlinked_list.o lch_helpers.o
 CFLAGS=-O2 -Wall -g
 LIBS=
 
-lch: $(OBJECTS) 
-	ld -o lch.o $(OBJECTS) -lc
-	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o
+# Dirs
+SRCDIR=src
+OBJDIR=build
 
-init_lch.o: src/init_lch.c include/lch.h
-	$(CC) $(CFLAGS) $(LIBS) -c src/init_lch.c 
+all: $(OBJDIR) $(patsubst %,$(OBJDIR)/%.o,$(FILES))
+	ld -o lch.o $(patsubst %,$(OBJDIR)/%.o,$(FILES)) -lc
 
-request_marshall.o: src/request_marshall.c src/include/request_marshall.h 
-	$(CC) $(CFLAGS) $(LIBS) -c src/request_marshall.c
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) $(LIBS) -c $(SRCDIR)/`basename $@ .o`.c -o $@
 
-dlinked_list.o: src/dlinked_list.c include/dlinked_list.h
-	$(CC) $(CFLAGS) $(LIBS) -c src/dlinked_list.c
-
-lch_helpers.o: src/lch_helpers.c
-	$(CC) $(CFLAGS) $(LIBS) -c src/lch_helpers.c
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 clean :
-	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o lch.o
+	rm -rf $(OBJDIR)
+	rm -f *.o
+
