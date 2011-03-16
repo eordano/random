@@ -88,8 +88,8 @@ struct http_request_t* request_marshall(char* raw_http_request){
             break;
     }
 
-    while(*(++raw_http_request) != ' ');
-    char* next_space = strchr(++raw_http_request, ' ');
+    while(*(raw_http_request++) != ' ');
+    char* next_space = strchr(raw_http_request, ' ');
 
     retval->path = malloc(next_space - raw_http_request + 1);
     strncpy(retval->path, raw_http_request, next_space - raw_http_request);
@@ -103,17 +103,17 @@ struct http_request_t* request_marshall(char* raw_http_request){
     char* line;
     int first_header = 1;
 
-    while(*(line = get_line(raw_http_request))){
+    while(*((line = get_line(raw_http_request))+1)){
         struct pair_strings *pair = read_pair_strings(line);
 
         if (strcmp(pair->key, "Host") == 0){
-            retval->host = pair->key;
+            retval->host = pair->value;
         }
         if (strcmp(pair->key, "User-Agent") == 0){
-            retval->user_agent = pair->key;
+            retval->user_agent = pair->value;
         }
         if (strcmp(pair->key, "Referer") == 0){
-            retval->referer = pair->key;
+            retval->referer = pair->value;
         }
         if (first_header){
             retval->headers = dll_new();
@@ -127,9 +127,12 @@ struct http_request_t* request_marshall(char* raw_http_request){
         raw_http_request = strchr(raw_http_request, '\n')+1;
         free(line);
     }
-    size_t data_length = strlen(++raw_http_request);
+    free(line);
+    raw_http_request = strchr(raw_http_request, '\n')+1;
 
-    retval->data = malloc(data_length);
+    size_t data_length = strlen(raw_http_request);
+
+    retval->data = malloc(data_length+1);
     strcpy(retval->data, raw_http_request);
 
     return retval;

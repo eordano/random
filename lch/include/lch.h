@@ -1,7 +1,9 @@
 #ifndef __request_marshall_h__
 #define __request_marshall_h__
 
-void init_lch(int port, (http_response_t* callback)(http_request_t* request));
+#include "http_types.h"
+
+void init_lch(int port, struct http_response_t* (*callback)(struct http_request_t* req));
 
 #endif // __request_marshall_h__
 

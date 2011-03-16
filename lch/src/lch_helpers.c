@@ -18,11 +18,10 @@ static struct http_response_t* lch_generic_response(status_code_t status_code, c
     retval->status_code = SC_OK;
     retval->content_type = malloc(10);
     strcpy(retval->content_type, "text/html");
-    retval->footers = dll_new();
 
     retval->content_length = strlen(content);
     retval->content = malloc(retval->content_length + 1);
-    strcpy(retval->content, content);
+    strncpy(retval->content, content, retval->content_length);
     retval->content[retval->content_length] = '\0';
 
     retval->footers = dll_new();
@@ -48,21 +47,12 @@ char* get_date(){
 
     int pid = fork();
     if (!pid){
-        // Close stdin, stdout, stderr, for we won't use them
-        close(0);
-        close(1);
-        close(2);
-        close(child_pipe[0]);
-
-        // And use our internal pipes
         dup2(child_pipe[1], 1); // The new stdout is pipe_out
-
-        execl("/bin/date", "date", "-R", NULL);
+        char* args[] = {"-R", NULL};
+        execv("/bin/date", args);
     }
 
-    close(child_pipe[1]);
     read(child_pipe[0], date, 512);
-    close(child_pipe[0]);
 
     return date;
 }

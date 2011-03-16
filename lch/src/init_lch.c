@@ -24,6 +24,7 @@ void init_lch(int port, struct http_response_t* (*callback)(struct http_request_
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (socket_fd < 0){
         printf("Error creating socket\n");
+        exit(1);
     }
 
     // Setup the socket address
@@ -38,6 +39,7 @@ void init_lch(int port, struct http_response_t* (*callback)(struct http_request_
         sizeof(socket_address)) < 0)
     {
         printf("Error binding to port\n");
+        exit(1);
     }
 
     // We are listening
@@ -60,6 +62,7 @@ void init_lch(int port, struct http_response_t* (*callback)(struct http_request_
         char* buffer = malloc(BLOCK_SIZE);
         int current_buffer_size = BLOCK_SIZE;
         int read_size = 0;
+
 
         read_size = recv(new_socket_fd, buffer, current_buffer_size, 0);
         if (read_size == current_buffer_size){
