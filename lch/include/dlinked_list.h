@@ -1,7 +1,7 @@
 #ifndef __dlinked_list_h__
 #define __dlinked_list_h__
 
-#include "defines.h"
+#include <stdlib.h>
 
 struct dlinked_list{
     void* data;

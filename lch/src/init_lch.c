@@ -6,12 +6,9 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../include/defines.h"
-
-#include "../include/request_marshall.h"
+#include "include/request_marshall.h"
+#include "../include/lch.h"
 #include "../include/http_types.h"
-
-#include "../include/application.h"
 
 const int BLOCK_SIZE = 4096;
 
@@ -21,20 +18,9 @@ const int BLOCK_SIZE = 4096;
  * him to handle the connection
  *
  */
-int main(int argc, char** argv){
-
-    // Initialize a buffer to be used to fetch data
-    char* buffer = malloc(BLOCK_SIZE);
-    int current_buffer_size = BLOCK_SIZE;
-    int read_size = 0;
-
-    // Validate that I got a port number
-    if (argc < 2){
-        printf("Usage: %s [port]\n", argv[0]);
-    }
+void init_lch(int port, struct http_response_t* (*callback)(struct http_request_t* req)){
 
     // Create the binding to the port specified as first argument
-    int port = atoi(argv[1]);
     int socket_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (socket_fd < 0){
         printf("Error creating socket\n");
@@ -68,8 +54,12 @@ int main(int argc, char** argv){
             continue;
         } else if (pid < 0){
             printf("Error forking process. Aborting.\n");
-            return 1;
+            exit(1);
         }
+
+        char* buffer = malloc(BLOCK_SIZE);
+        int current_buffer_size = BLOCK_SIZE;
+        int read_size = 0;
 
         read_size = recv(new_socket_fd, buffer, current_buffer_size, 0);
         if (read_size == current_buffer_size){
@@ -80,13 +70,19 @@ int main(int argc, char** argv){
             } while (read_size == BLOCK_SIZE);
         }
 
-        char* response = request_unmarshall(application(request_marshall(buffer)));
+        struct http_request_t* http_request = request_marshall(buffer);
+        free(buffer);
+
+        struct http_response_t* http_response = callback(http_request);
+        free_http_request(http_request);
+
+        char* response = request_unmarshall(http_response);
+        free_http_response(http_response);
+
         write(new_socket_fd, response, strlen(response));
         free(response);
 
-        return 0;
+        exit(0);
     }
-
-    return 0;
 }
 

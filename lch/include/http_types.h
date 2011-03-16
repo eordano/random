@@ -2,13 +2,15 @@
 #define __http_types_h__
 
 #include "dlinked_list.h"
-#include "defines.h"
+#include <stdlib.h>
 
 typedef enum {
     OPTIONS, GET, HEAD, POST, PUT,  DELETE, TRACE, CONNECT
 } request_type_t;
+
 typedef int status_code_t;
 
+// More status codes missing
 #define SC_OK 200
 #define SC_BAD_REQUEST 400
 #define SC_NOT_FOUND 404

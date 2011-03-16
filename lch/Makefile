@@ -5,24 +5,24 @@
 #
 
 CC=gcc
-OBJECTS=server.o request_marshall.o dlinked_list.o application.o
+OBJECTS=init_lch.o request_marshall.o dlinked_list.o lch_helpers.o
 CFLAGS=-O2 -Wall -g
 LIBS=
 
 lch: $(OBJECTS) 
-	$(CC) $(CFLAGS) $(LIBS) -o lch $(OBJECTS) 
+	$(CC) $(CFLAGS) $(LIBS) lch $(OBJECTS)
 
-server.o: server.c
-	$(CC) $(CFLAGS) $(LIBS) -c server.c 
+init_lch.o: src/init_lch.c include/lch.h
+	$(CC) $(CFLAGS) $(LIBS) -c src/init_lch.c 
 
-request_marshall.o: marshall/request_marshall.c marshall/request_marshall.h 
-	$(CC) $(CFLAGS) $(LIBS) -c marshall/request_marshall.c
+request_marshall.o: src/request_marshall.c src/include/request_marshall.h 
+	$(CC) $(CFLAGS) $(LIBS) -c src/request_marshall.c
 
-dlinked_list.o: util/dlinked_list.c util/dlinked_list.h
-	$(CC) $(CFLAGS) $(LIBS) -c util/dlinked_list.c
+dlinked_list.o: src/dlinked_list.c include/dlinked_list.h
+	$(CC) $(CFLAGS) $(LIBS) -c src/dlinked_list.c
 
-application.o: application/application.c application/application.h
-	$(CC) $(CFLAGS) $(LIBS) -c application/application.c
+lch_helpers.o: src/lch_helpers.c
+	$(CC) $(CFLAGS) $(LIBS) -c src/lch_helpers.c
 
 clean :
-	rm -f lch *.o
+	rm -f init_lch.o request_marshall.o dlinked_list.o lch_helpers.o

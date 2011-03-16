@@ -38,6 +38,6 @@ creating the following responses:
 Start the server with a call to the function init\_lch, wich receives a
 callback that will be called for each request::
 
-    void init_lch((http_response_t* callback)(http_request_t* request));
+    void init_lch(int port, (http_response_t* callback)(http_request_t* req));
 
 
