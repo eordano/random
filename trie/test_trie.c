@@ -15,8 +15,6 @@ int main() {
     assert(add_kv(trie, "chau", (void*)(vec+1)));
     assert(add_kv(trie, "hola1", (void*)(vec+2)));
     assert(add_kv(trie, "chau_", (void*)(vec+3)));
-
-    debug_trie(trie);
     
     assert(seek_k(trie, "hola") == (void*)vec);
     assert(seek_k(trie, "chau") == (void*)(vec+1));

@@ -51,8 +51,8 @@ static inline int char_to_index(char c) {
 
 static inline char index_to_char(int c) {
     if (c < 10) return '0'+c;
-    if (c < 36) return 'a'+c;
-    if (c < 62) return 'A'+c;
+    if (c < 36) return 'a'+c-10;
+    if (c < 62) return 'A'+c-36;
     if (c == 62) return '_';
     if (c == 63) return '.';
     return '!';
@@ -128,11 +128,11 @@ trie_t new_trie() {
 
 bool add_kv(trie_t trie, char* key, void* value) {
 
-    int parent_index = 0;
-    int node_index = ((itrie_t*)trie)->root;
+    int parent_index = ((itrie_t*)trie)->root;
+    int node_index;
     
-    trie_node_t* node = sp+node_index;
-    trie_node_t* parent = NULL;
+    trie_node_t* parent = sp+parent_index;
+    trie_node_t* node;
 
     int i = 0;
 
@@ -142,28 +142,28 @@ bool add_kv(trie_t trie, char* key, void* value) {
             errno = EINVAL;
             return false;
         }
-        parent_index = node_index;
-        int node_index = node->words[char_to_index(key[i])];
 
+        int node_index = parent->words[char_to_index(key[i])];
+
+        /* If it's a new node, update pointers and initialize values */
         if (node_index == -1) {
-            /* Add a new node */
             node_index = new_node();
             if (node_index == -1) {
                 return false;
             }
             node = sp+node_index;
+            parent = sp+parent_index;
 
             node->data = NULL;
             memset(node->words, -1, sizeof(int) * NUM_VALID_CHARS);
-
-            parent = sp+parent_index;
-            parent->words[char_to_index(key[i])] = node_index;
-        } else {
-            node = sp+node_index;
-            parent = sp+parent_index;
         }
 
+        node = sp+node_index;
+
         parent->childs++;
+        parent->words[char_to_index(key[i])] = node_index;
+        parent_index = node_index;
+        parent = sp+parent_index;
         ++i;
     }
 
@@ -271,9 +271,8 @@ void erase_trie(trie_t trie) {
     }
 }
 
-static int tabs = 0;
 
-static void rec_debug_trie(int index) {
+static void rec_debug_trie(int index, int tabs) {
 
     printf("Node #%d", index);
     int cas;
@@ -285,7 +284,7 @@ static void rec_debug_trie(int index) {
                 printf("  ");
             }
             printf("'%c' -> ", index_to_char(i));
-            rec_debug_trie((sp+index)->words[i]);
+            rec_debug_trie((sp+index)->words[i], tabs);
         }
     }
     printf("\n");
@@ -293,6 +292,6 @@ static void rec_debug_trie(int index) {
 }
 
 void debug_trie(trie_t trie) {
-    rec_debug_trie(((itrie_t*)trie)->root);
+    rec_debug_trie(((itrie_t*)trie)->root, 0);
 }
 
