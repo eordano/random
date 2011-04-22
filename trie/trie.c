@@ -1,6 +1,7 @@
 #include "trie.h"
 #include <errno.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -48,6 +49,15 @@ static inline int char_to_index(char c) {
     }
 }
 
+static inline char index_to_char(int c) {
+    if (c < 10) return '0'+c;
+    if (c < 36) return 'a'+c;
+    if (c < 62) return 'A'+c;
+    if (c == 62) return '_';
+    if (c == 63) return '.';
+    return '!';
+}
+
 static int new_node() {
 
     if (first_request) {
@@ -83,7 +93,7 @@ static int new_node() {
             available_spaces[++first_available] = i;
         }
     }
-    return --first_available;
+    return available_spaces[first_available--];
 }
 
 static void free_node(int node) {
@@ -259,5 +269,30 @@ void erase_trie(trie_t trie) {
         first_available = -1;
         size_allocd = 0;
     }
+}
+
+static int tabs = 0;
+
+static void rec_debug_trie(int index) {
+
+    printf("Node #%d", index);
+    int cas;
+    tabs++;
+    for(int i = 0; i < NUM_VALID_CHARS; i++) {
+        if (((sp+index)->words[i]) != -1) {
+            printf("\n  ");
+            for (int j = 0; j < tabs; j++) {
+                printf("  ");
+            }
+            printf("'%c' -> ", index_to_char(i));
+            rec_debug_trie((sp+index)->words[i]);
+        }
+    }
+    printf("\n");
+    tabs--;
+}
+
+void debug_trie(trie_t trie) {
+    rec_debug_trie(((itrie_t*)trie)->root);
 }
 

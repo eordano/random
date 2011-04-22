@@ -32,5 +32,7 @@ bool rm_k(trie_t trie, char* key);
  */
 void erase_trie(trie_t trie);
 
+void debug_trie(trie_t trie);
+
 #endif
 
